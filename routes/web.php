@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/users', function () {
+    return view('users.index');
+});
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/contact/store', [ContactController::class, 'store'])->name('store');
