@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ Route::get('/', function () {
 Route::get('/users', function () {
     return view('users.index');
 });
+
+Route::get('/register/seeker', [UserController::class, 'createSeeker'])->name('register.createSeeker');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/store', [ContactController::class, 'store'])->name('store');
