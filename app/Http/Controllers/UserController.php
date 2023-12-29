@@ -28,14 +28,19 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:1'],
         ]);
-        User::create([
+        $user = User::create([
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
             'user_type' => User::JOB_SEEKER,
         ]);
-        return back();
+        Auth()->login($user);
+        $user->sendEmailVerificationNotification();
+
+        return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
+        // return back();
     }
+
     public function storeEmployer(Request $request)
     {
         request()->validate([

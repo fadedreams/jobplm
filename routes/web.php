@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,13 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('ver
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/login');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 Route::get('/verify', [DashboardController::class, 'verify'])->name('verification.notice');
+
 
 
 
