@@ -23,7 +23,8 @@ Route::get('/users', function () {
     return view('users.index');
 });
 
-Route::get('/register/seeker', [UserController::class, 'createSeeker'])->name('register.createSeeker');
+Route::get('/register/seeker', [UserController::class, 'createSeeker'])->name('register.seeker');
+Route::post('/register/seeker', [UserController::class, 'storeSeeker'])->name('store.seeker');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/store', [ContactController::class, 'store'])->name('store');

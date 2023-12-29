@@ -13,25 +13,26 @@
         <div class="col-md-6 mt-5 mb-5">
             <div class="card" id="card" style="margin-top:50px;">
                 <div class="card-header">Register</div>
-                <form action="#" method="post" id="registrationForm">
+                <form action="{{route('store.seeker')}}" method="post" id="registrationForm">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Full name</label>
-                            <input type="text" name="name" class="form-control" required>
+                            <input type="text" name="name" class="form-control">
                             @if($errors->has('name'))
                             <span class="text-danger">{{ $errors->first('name')}}</span>
                             @endif
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" name="email" class="form-control" required>
+                            <input type="text" name="email" class="form-control">
                             @if($errors->has('email'))
                             <span class="text-danger">{{ $errors->first('email')}}</span>
                             @endif
                         </div>
                         <div class="form-group">
                             <label for="">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <input type="password" name="password" class="form-control">
                             @if($errors->has('password'))
                             <span class="text-danger">{{ $errors->first('password')}}</span>
                             @endif
