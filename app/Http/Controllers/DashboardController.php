@@ -30,4 +30,13 @@ class DashboardController extends Controller
     {
         return view('users.verify');
     }
+    public function resend(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->hasVerifiedEmail()) {
+            return redirect()->route('login')->with('success', 'Email already verified.');
+        }
+        $user->sendEmailVerificationNotification();
+        return back()->with('success', 'Email verification link sent on your email id.');
+    }
 }
