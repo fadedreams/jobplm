@@ -22,14 +22,24 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="{{route('login')}}">login</a>
+                    </li>
+                    @if(!Auth::check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">job seeker</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="#">employer</a>
                     </li>
+                    @endif
+                    @if(Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
+                        <a id="logout" class="nav-link" href="#" onclick="document.getElementById('form-logout').submit();">Logout</a>
                     </li>
+                    @endif
+                    <form action="{{ route('logout') }}" method="post" id="form-logout">
+                        @csrf
+                    </form>
                 </ul>
             </div>
         </div>

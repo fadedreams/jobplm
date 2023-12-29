@@ -7,7 +7,8 @@
         <div class="col-md-8">
             <div class="card shadow-lg">
                 <div class="card-header">Login</div>
-                <form action="#" method="post">@csrf
+                <form action="{{route('login.post')}}" method="post">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Email</label>
@@ -28,6 +29,10 @@
                             <button class="btn btn-primary" type="submit">Login</button>
                         </div>
                     </div>
+                    <!-- Add this inside your form, where you want to display the error -->
+                    @if($errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                 </form>
             </div>
         </div>

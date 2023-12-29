@@ -21,7 +21,7 @@ class UserController extends Controller
         request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:1', 'confirmed'],
+            'password' => ['required', 'string', 'min:1'],
         ]);
         User::create([
             'name' => request('name'),
@@ -33,7 +33,27 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-
         return view('users.login');
+    }
+
+    public function postLogin(Request $request)
+    {
+        request()->validate([
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:1'],
+        ]);
+        $cred = $request->only('email', 'password');
+        if (Auth()->attempt($cred)) {
+            return redirect()->intended('dashboard');
+        }
+        // Authentication failed, redirect back to login with error message
+        return redirect()->route('login')->withInput($request->only('email'))
+            ->withErrors(['email' => 'Invalid email or password']);
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('login');
     }
 }
