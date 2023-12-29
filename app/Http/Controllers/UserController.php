@@ -31,4 +31,9 @@ class UserController extends Controller
         ]);
         return back();
     }
+    public function login(Request $request)
+    {
+
+        return view('users.login');
+    }
 }
