@@ -26,10 +26,10 @@
                     </li>
                     @if(!Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link" href="#">job seeker</a>
+                        <a class="nav-link" href="{{route('register.seeker')}}">seeker</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">employer</a>
+                        <a class="nav-link" href="{{route('register.employer')}}">employer</a>
                     </li>
                     @endif
                     @if(Auth::check())

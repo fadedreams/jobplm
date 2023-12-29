@@ -23,6 +23,7 @@ class User extends Authenticatable
     //     'password',
     // ];
     const JOB_SEEKER = 'seeker';
+    const JOB_EMPLOYER = 'employer';
     protected $guarded = [];
 
     /**

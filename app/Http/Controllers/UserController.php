@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\SRReq;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
     public function createSeeker()
     {
         return view('users.seeker-register');
+    }
+    public function createEmployer()
+    {
+        return view('users.employer-register');
     }
 
     // public function storeSeeker(Request $request)
@@ -27,10 +32,28 @@ class UserController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
-            'user_type' => 'seeker',
+            'user_type' => User::JOB_SEEKER,
         ]);
         return back();
     }
+    public function storeEmployer(Request $request)
+    {
+        request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:1'],
+        ]);
+        User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => bcrypt(request('password')),
+            'user_type' => USER::JOB_EMPLOYER,
+            'user_trial' => now()->addWeek(),
+        ]);
+        // Session::flash('success', 'Registration successful! Please log in.');
+        return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
+    }
+
     public function login(Request $request)
     {
         return view('users.login');
