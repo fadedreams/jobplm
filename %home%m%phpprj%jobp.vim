@@ -15,16 +15,17 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/phpprj/jobp
-badd +40 app/Http/Controllers/DashboardController.php
-badd +4 resources/views/users/verify.blade.php
-badd +48 routes/web.php
+badd +62 app/Http/Controllers/UserController.php
+badd +17 resources/views/users/employer-register.blade.php
+badd +61 .env
+badd +17 resources/views/users/seeker-register.blade.php
+badd +56 routes/web.php
 argglobal
 %argdel
 $argadd ~/phpprj/jobp
-edit resources/views/users/verify.blade.php
+edit routes/web.php
 argglobal
-balt routes/web.php
+balt .env
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -33,11 +34,11 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 4 - ((3 * winheight(0) + 16) / 33)
+let s:l = 41 - ((17 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 4
+keepjumps 41
 normal! 0
 lcd ~/phpprj/jobp
 tabnext 1

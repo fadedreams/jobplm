@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
+// use App\Mail\PurchaseMail;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use App\Http\Middleware\IsEmployer;
+use App\Http\Middleware\donotAllowUserToMakePayment;
+use App\Models\User;
 
 class SubController extends Controller
 {
@@ -19,6 +22,7 @@ class SubController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', IsEmployer::class]);
+        $this->middleware(['auth', donotAllowUserToMakePayment::class])->except('subscribe');
     }
 
     public function subscribe()
@@ -105,5 +109,30 @@ class SubController extends Controller
             return $e;
             // return response()->json($e);
         }
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        $plan = $request->plan;
+        $billingEnds = $request->billing_ends;
+        User::where('id', auth()->user()->id)->update([
+            'plan' => $plan,
+            'billing_ends' => $billingEnds,
+            'status' => 'paid'
+        ]);
+
+        // try {
+        //     Mail::to(auth()->user())->queue(new PurchaseMail($plan, $billingEnds));
+        // } catch (\Exception $e) {
+        //     return response()->json($e);
+        // }
+
+
+        return redirect()->route('dashboard')->with('success', 'Payment was successfully processed');
+    }
+
+    public function cancel()
+    {
+        return redirect()->route('dashboard')->with('error', 'Payment was unsuccessful!');
     }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\SubController;
 use App\Http\Middleware\IsEmployer;
+use App\Http\Controllers\PostJobController;
+use App\Http\Middleware\IsPremiumUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +39,8 @@ Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'postLogin'])->name('login.post');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 
@@ -61,3 +63,6 @@ Route::get('pay/monthly', [SubController::class, 'initiatePayment'])->name('pay.
 Route::get('pay/yearly', [SubController::class, 'initiatePayment'])->name('pay.yearly');
 Route::get('payment/success', [SubController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('payment/cancel', [SubController::class, 'cancel'])->name('payment.cancel');
+
+
+Route::get('job/create', [PostJobController::class, 'create'])->name('job.create')->middleware(['auth', IsPremiumUser::class]);

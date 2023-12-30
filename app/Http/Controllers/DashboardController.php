@@ -26,10 +26,12 @@ class DashboardController extends Controller
         }
         return back();
     }
+
     public function verify()
     {
         return view('users.verify');
     }
+
     public function resend(Request $request)
     {
         $user = Auth::user();
