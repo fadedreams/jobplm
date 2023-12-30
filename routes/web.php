@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\SubController;
+use App\Http\Middleware\IsEmployer;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,14 +46,18 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     $request->fulfill();
     return redirect('/login');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
 Route::get('/verify', [DashboardController::class, 'verify'])->name('verification.notice');
 Route::get('/resend/verification/email', [DashboardController::class, 'resend'])->name('resend.email');
-
 
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/store', [ContactController::class, 'store'])->name('store');
 
-Route::get('subscribe', [SubController::class, 'subscribe'])->middleware('auth')->name('subscribe');
+Route::get('subscribe', [SubController::class, 'subscribe'])->middleware(['auth', IsEmployer::class])->name('subscribe');
 // Route::get('/subscribe', [SubController::class, 'subscribe'])->name('subscribe');
 Route::get('pay/weekly', [SubController::class, 'initiatePayment'])->name('pay.weekly');
+Route::get('pay/monthly', [SubController::class, 'initiatePayment'])->name('pay.monthly');
+Route::get('pay/yearly', [SubController::class, 'initiatePayment'])->name('pay.yearly');
+Route::get('payment/success', [SubController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('payment/cancel', [SubController::class, 'cancel'])->name('payment.cancel');
