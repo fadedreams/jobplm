@@ -36,7 +36,6 @@ class UserController extends Controller
         ]);
         Auth()->login($user);
         $user->sendEmailVerificationNotification();
-
         return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
         // return back();
     }
@@ -48,7 +47,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:1'],
         ]);
-        User::create([
+        $user = User::create([
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
@@ -56,6 +55,8 @@ class UserController extends Controller
             'user_trial' => now()->addWeek(),
         ]);
         // Session::flash('success', 'Registration successful! Please log in.');
+        Auth()->login($user);
+        $user->sendEmailVerificationNotification();
         return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
     }
 
