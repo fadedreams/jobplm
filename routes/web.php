@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\SubController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,7 @@ Route::get('/resend/verification/email', [DashboardController::class, 'resend'])
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/store', [ContactController::class, 'store'])->name('store');
+
+Route::get('subscribe', [SubController::class, 'subscribe'])->middleware('auth')->name('subscribe');
+// Route::get('/subscribe', [SubController::class, 'subscribe'])->name('subscribe');
+Route::get('pay/weekly', [SubController::class, 'initiatePayment'])->name('pay.weekly');
