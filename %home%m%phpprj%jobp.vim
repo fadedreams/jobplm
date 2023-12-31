@@ -15,44 +15,21 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/phpprj/jobp
-badd +25 app/Http/Controllers/SubController.php
-badd +18 resources/views/subscription/index.blade.php
-badd +26 resources/views/dashboard.blade.php
-badd +59 routes/web.php
-badd +29 app/Http/Controllers/DashboardController.php
-badd +53 app/Http/Controllers/UserController.php
-badd +18 app/Http/Middleware/IsPremiumUser.php
-badd +7 app/Http/Controllers/PostJobController.php
-badd +83 resources/views/job/create.blade.php
-badd +9 app/Http/Middleware/donotAllowUserToMakePayment.php
+badd +92 app/Http/Controllers/PostJobController.php
+badd +67 routes/web.php
+badd +1 public
+badd +30 app/Http/Requests/JPR.php
+badd +39 app/Post/JobPost.php
 argglobal
 %argdel
 $argadd ~/phpprj/jobp
-edit app/Http/Controllers/SubController.php
-argglobal
-balt resources/views/subscription/index.blade.php
-setlocal fdm=indent
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-17
-normal! zo
-24
-normal! zo
-116
-normal! zo
-let s:l = 25 - ((20 * winheight(0) + 16) / 33)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 25
-normal! 0
-lcd ~/phpprj/jobp
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -60,6 +37,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

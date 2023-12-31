@@ -10,6 +10,7 @@ use App\Models\Listing;
 use App\Post\JobPost;
 use Illuminate\Support\Str;
 use App\Http\Requests\JPR;
+use App\Http\Requests\JER;
 
 class PostJobController extends Controller
 {
@@ -25,9 +26,9 @@ class PostJobController extends Controller
 
     public function index()
     {
-        // $jobs = Listing::where('user_id', auth()->user()->id)->get();
-        //
-        // return view('job.index', compact('jobs'));
+        $jobs = Listing::where('user_id', auth()->user()->id)->get();
+
+        return view('job.index', compact('jobs'));
     }
 
     public function create()
@@ -73,10 +74,11 @@ class PostJobController extends Controller
 
     public function edit(Listing $listing)
     {
+        // $listing = Listing::findOrFail($listingId);
         return view('job.edit', compact('listing'));
     }
 
-    public function update($id, JobEditFormRequest $request)
+    public function update($id, JER $request)
     {
         $this->job->updatePost($id, $request);
 
