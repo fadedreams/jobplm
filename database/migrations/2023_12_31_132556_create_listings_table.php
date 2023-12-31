@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('title');
-            $table->text('description');
-            $table->text('roles');
-            $table->string('job_type');
-            $table->string('address');
-            $table->string('salary');
-            $table->date('application_close_date');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('roles')->nullable();
+            $table->string('job_type')->nullable();
+            $table->string('address')->nullable();
+            $table->string('salary')->nullable();
+            $table->date('application_close_date')->nullable();
             $table->timestamps();
         });
     }
