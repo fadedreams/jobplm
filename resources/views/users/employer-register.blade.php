@@ -13,7 +13,7 @@
         <div class="col-md-6">
             <div class="card" id="card">
                 <div class="card-header">Employer Registration</div>
-                <form action="#" method="post" id="registrationForm">
+                <form action="{{route('store.employer')}}" method="post">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -81,8 +81,7 @@
         }).catch(error => {
             button.innerHTML = 'Register'
             button.disabled = false
-            messageDiv.innerHTML = '<div class="alert alert-danger">Something went wrong. Please try again</div>'
-
+            messageDiv.innerHTML = error
         })
 
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SRReq;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use App\Jobs\SendEmailVerificationNotificationJob;
 
 class UserController extends Controller
 {
@@ -56,7 +57,15 @@ class UserController extends Controller
         ]);
         // Session::flash('success', 'Registration successful! Please log in.');
         Auth()->login($user);
-        $user->sendEmailVerificationNotification();
+        // $user->sendEmailVerificationNotification();
+        //
+        SendEmailVerificationNotificationJob::dispatch($user);
+        // try {
+        //     Mail::to(auth()->user())->queue(new PurchaseMail($plan, $billingEnds));
+        // } catch (\Exception $e) {
+        //     return response()->json($e);
+        // }
+
         return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
     }
 

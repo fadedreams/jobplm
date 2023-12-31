@@ -52,7 +52,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::get('/verify', [DashboardController::class, 'verify'])->name('verification.notice');
 Route::get('/resend/verification/email', [DashboardController::class, 'resend'])->name('resend.email');
 
-
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/store', [ContactController::class, 'store'])->name('store');
 
@@ -63,6 +62,5 @@ Route::get('pay/monthly', [SubController::class, 'initiatePayment'])->name('pay.
 Route::get('pay/yearly', [SubController::class, 'initiatePayment'])->name('pay.yearly');
 Route::get('payment/success', [SubController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('payment/cancel', [SubController::class, 'cancel'])->name('payment.cancel');
-
 
 Route::get('job/create', [PostJobController::class, 'create'])->name('job.create')->middleware(['auth', IsPremiumUser::class]);

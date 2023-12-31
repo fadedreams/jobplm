@@ -126,8 +126,6 @@ class SubController extends Controller
         } catch (\Exception $e) {
             return response()->json($e);
         }
-
-
         return redirect()->route('dashboard')->with('success', 'Payment was successfully processed');
     }
 
