@@ -64,3 +64,8 @@ Route::get('payment/success', [SubController::class, 'paymentSuccess'])->name('p
 Route::get('payment/cancel', [SubController::class, 'cancel'])->name('payment.cancel');
 
 Route::get('job/create', [PostJobController::class, 'create'])->name('job.create')->middleware(['auth', IsPremiumUser::class]);
+Route::post('job/store', [PostJobController::class, 'store'])->name('job.store');
+Route::get('job/{listing}/edit', [PostJobController::class, 'edit'])->name('job.edit');
+Route::put('job/{id}/edit', [PostJobController::class, 'update'])->name('job.update');
+Route::get('job', [PostJobController::class, 'index'])->name('job.index');
+Route::delete('job/{id}/delete', [PostJobController::class, 'destroy'])->name('job.delete');
