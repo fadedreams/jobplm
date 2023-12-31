@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
-// use App\Mail\PurchaseMail;
+use App\Mail\PurchaseMail;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use App\Http\Middleware\IsEmployer;
@@ -22,7 +22,7 @@ class SubController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', IsEmployer::class]);
-        $this->middleware(['auth', donotAllowUserToMakePayment::class])->except('subscribe');
+        // $this->middleware(['auth', donotAllowUserToMakePayment::class])->except('subscribe');
     }
 
     public function subscribe()
@@ -121,11 +121,11 @@ class SubController extends Controller
             'status' => 'paid'
         ]);
 
-        // try {
-        //     Mail::to(auth()->user())->queue(new PurchaseMail($plan, $billingEnds));
-        // } catch (\Exception $e) {
-        //     return response()->json($e);
-        // }
+        try {
+            Mail::to(auth()->user())->queue(new PurchaseMail($plan, $billingEnds));
+        } catch (\Exception $e) {
+            return response()->json($e);
+        }
 
 
         return redirect()->route('dashboard')->with('success', 'Payment was successfully processed');

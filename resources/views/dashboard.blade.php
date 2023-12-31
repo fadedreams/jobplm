@@ -35,8 +35,8 @@
                             <div class="card bg-c-blue order-card">
                                 <div class="card-block">
                                     <h6 class="m-b-20">Total jobs posted</h6>
-                                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i>&nbsp;&nbsp;<span>{{\App\Models\Listing::where('user_id',auth()->id())->count()}}</span></h2>
-                                    <p class="m-b-0">Your jobs<span class="f-right">{{\App\Models\Listing::where('user_id',auth()->id())->count()}}</span></p>
+                                    {{-- <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i>&nbsp;&nbsp;<span>{{\App\Models\Listing::where('user_id',auth()->id())->count()}}</span></h2> --}}
+                                    {{-- <p class="m-b-0">Your jobs<span class="f-right">{{\App\Models\Listing::where('user_id',auth()->id())->count()}}</span></p> --}}
                                 </div>
                             </div>
                         </div>

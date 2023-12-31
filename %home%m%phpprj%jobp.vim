@@ -15,17 +15,23 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +62 app/Http/Controllers/UserController.php
-badd +17 resources/views/users/employer-register.blade.php
-badd +61 .env
-badd +17 resources/views/users/seeker-register.blade.php
-badd +56 routes/web.php
+badd +1 ~/phpprj/jobp
+badd +25 app/Http/Controllers/SubController.php
+badd +18 resources/views/subscription/index.blade.php
+badd +26 resources/views/dashboard.blade.php
+badd +59 routes/web.php
+badd +29 app/Http/Controllers/DashboardController.php
+badd +53 app/Http/Controllers/UserController.php
+badd +18 app/Http/Middleware/IsPremiumUser.php
+badd +7 app/Http/Controllers/PostJobController.php
+badd +83 resources/views/job/create.blade.php
+badd +9 app/Http/Middleware/donotAllowUserToMakePayment.php
 argglobal
 %argdel
 $argadd ~/phpprj/jobp
-edit routes/web.php
+edit app/Http/Controllers/SubController.php
 argglobal
-balt .env
+balt resources/views/subscription/index.blade.php
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -34,11 +40,17 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 41 - ((17 * winheight(0) + 11) / 22)
+17
+normal! zo
+24
+normal! zo
+116
+normal! zo
+let s:l = 25 - ((20 * winheight(0) + 16) / 33)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 41
+keepjumps 25
 normal! 0
 lcd ~/phpprj/jobp
 tabnext 1
