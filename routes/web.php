@@ -39,6 +39,18 @@ Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'postLogin'])->name('login.post');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
+Route::get('user/profile', [UserController::class, 'profile'])->name('user.profile')->middleware('auth');
+Route::post('user/profile', [UserController::class, 'update'])->name('user.update.profile')->middleware('auth');
+Route::get('user/profile/seeker', [UserController::class, 'seekerProfile'])->name('seeker.profile')
+    ->middleware(['auth', 'verified']);
+
+Route::get('user/job/applied', [UserController::class, 'jobApplied'])->name('job.applied')
+    ->middleware(['auth', 'verified']);
+
+Route::post('user/password', [UserController::class, 'changePassword'])->name('user.password')->middleware('auth');
+Route::post('upload/resume', [UserController::class, 'uploadResume'])->name('upload.resume')->middleware('auth');
+
+
 // Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');

@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <h1>Looking for a job?</h1>
+            <h1>job</h1>
             <h3>Please create an account</h3>
             <img src="/it-engineer-working-with-his-pc.jpeg" width="580" class="img-responsibe">
         </div>

@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <h1>Looking for an employee?</h1>
+            <h1>employee</h1>
             <h3>Please create an account</h3>
             <img src="{{asset('image/register.png')}}">
         </div>
