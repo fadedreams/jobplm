@@ -11,6 +11,7 @@ use App\Http\Controllers\PostJobController;
 use App\Http\Middleware\IsPremiumUser;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\JobListingController;
+use App\Http\Controllers\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,7 +81,7 @@ Route::get('payment/cancel', [SubController::class, 'cancel'])->name('payment.ca
 Route::get('/', [JobListingController::class, 'index'])->name('listing.index');
 Route::get('/company/{id}', [JobListingController::class, 'company'])->name('company');
 Route::get('/jobs/{listing:slug}', [JobListingController::class, 'show'])->name('job.show');
-
+Route::post('/resume/upload', [FileUploadController::class, 'store'])->middleware('auth');
 
 Route::get('job/create', [PostJobController::class, 'create'])->name('job.create')->middleware(['auth', IsPremiumUser::class]);
 Route::post('job/store', [PostJobController::class, 'store'])->name('job.store');
@@ -92,3 +93,5 @@ Route::delete('job/{id}/delete', [PostJobController::class, 'destroy'])->name('j
 Route::get('applicants', [ApplicantController::class, 'index'])->name('applicants.index');
 Route::get('applicants/{listing:slug}', [ApplicantController::class, 'show'])->name('applicants.show');
 Route::post('/applicantion/{listingId}/submit', [ApplicantController::class, 'apply'])->name('applicantion.submit');
+Route::post('shortlist/{listingId}/{userId}', [ApplicantController::class, 'shortlist'])
+    ->name('applicants.shortlist');

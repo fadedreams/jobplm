@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -60,7 +59,7 @@
                                         <input type="file" />
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" id="btnApply" disabled class="btn btn-success btn-lg">Apply</button>
+                                        <button type="submit" id="btnApply" class="btn btn-success btn-lg">Apply</button>
                                     </div>
                                 </div>
                             </div>

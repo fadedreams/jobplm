@@ -41,16 +41,16 @@ class ApplicantController extends Controller
     public function shortlist($listingId, $userId)
     {
 
-        // $listing = Listing::find($listingId);
-        // $user = User::find($userId);
-        // if ($listing) {
-        //     $listing->users()->updateExistingPivot($userId, ['shortlisted' => true]);
-        //     Mail::to($user->email)->queue(new ShortlistMail($user->name, $listing->title));
-        //
-        //     return back()->with('success', 'User is shortlisted successfully');
-        // }
-        //
-        // return back();
+        $listing = Listing::find($listingId);
+        $user = User::find($userId);
+        if ($listing) {
+            $listing->users()->updateExistingPivot($userId, ['shortlisted' => true]);
+            // Mail::to($user->email)->queue(new ShortlistMail($user->name, $listing->title));
+
+            return back()->with('success', 'User is shortlisted successfully');
+        }
+
+        return back();
     }
 
     public function apply($listingId)
