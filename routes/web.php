@@ -9,6 +9,8 @@ use App\Http\Controllers\SubController;
 use App\Http\Middleware\IsEmployer;
 use App\Http\Controllers\PostJobController;
 use App\Http\Middleware\IsPremiumUser;
+use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\JobListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,9 +77,18 @@ Route::get('pay/yearly', [SubController::class, 'initiatePayment'])->name('pay.y
 Route::get('payment/success', [SubController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('payment/cancel', [SubController::class, 'cancel'])->name('payment.cancel');
 
+Route::get('/', [JobListingController::class, 'index'])->name('listing.index');
+Route::get('/company/{id}', [JobListingController::class, 'company'])->name('company');
+Route::get('/jobs/{listing:slug}', [JobListingController::class, 'show'])->name('job.show');
+
+
 Route::get('job/create', [PostJobController::class, 'create'])->name('job.create')->middleware(['auth', IsPremiumUser::class]);
 Route::post('job/store', [PostJobController::class, 'store'])->name('job.store');
 Route::get('job/{listing}/edit', [PostJobController::class, 'edit'])->name('job.edit');
 Route::put('job/{id}/edit', [PostJobController::class, 'update'])->name('job.update');
 Route::get('job', [PostJobController::class, 'index'])->name('job.index');
 Route::delete('job/{id}/delete', [PostJobController::class, 'destroy'])->name('job.delete');
+
+Route::get('applicants', [ApplicantController::class, 'index'])->name('applicants.index');
+Route::get('applicants/{listing:slug}', [ApplicantController::class, 'show'])->name('applicants.show');
+Route::post('/applicantion/{listingId}/submit', [ApplicantController::class, 'apply'])->name('applicantion.submit');

@@ -13,7 +13,8 @@
         <div class="col-md-6 mt-5 mb-5">
             <div class="card" id="card" style="margin-top:50px;">
                 <div class="card-header">Register</div>
-                <form action="#" method="post" id="registrationForm">
+                {{-- <form action="#" method="post" id="registrationForm"> --}}
+                <form action="{{route('store.seeker')}}" method="post">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -82,7 +83,7 @@
             console.log(error)
             button.innerHTML = 'Register'
             button.disabled = false
-            messageDiv.innerHTML = '<div class="alert alert-danger">Something went wrong. Please try again</div>'
+            messageDiv.innerHTML = error
 
         })
 

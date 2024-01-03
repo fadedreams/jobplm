@@ -15,14 +15,14 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +92 app/Http/Controllers/PostJobController.php
-badd +67 routes/web.php
-badd +1 public
-badd +30 app/Http/Requests/JPR.php
-badd +39 app/Post/JobPost.php
+badd +1 ~/phpprj/jobp
+badd +86 routes/web.php
+badd +48 app/Http/Controllers/ApplicantController.php
+badd +48 app/Models/User.php
 argglobal
 %argdel
 $argadd ~/phpprj/jobp
+edit app/Http/Controllers/ApplicantController.php
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -30,6 +30,25 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+argglobal
+balt app/Models/User.php
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+12
+normal! zo
+let s:l = 48 - ((28 * winheight(0) + 16) / 33)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 48
+normal! 0
+lcd ~/phpprj/jobp
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
