@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 
 class ApplicantController extends Controller
@@ -14,12 +14,21 @@ class ApplicantController extends Controller
     {
         // Check if the user is authenticated
         if (auth()->check()) {
-            $listings = Listing::latest()
-                ->withCount('users')
-                ->where('user_id', auth()->user()->id)
-                ->get();
-            // dd($listings);
+            $cacheKey = 'user_' . auth()->user()->id . '_listings';
 
+            // Attempt to retrieve data from cache
+            $listings = Cache::get($cacheKey);
+
+            // If data is not in cache, fetch it from the database and store in cache
+            if ($listings === null) {
+                $listings = Listing::latest()
+                    ->withCount('users')
+                    ->where('user_id', auth()->user()->id)
+                    ->get();
+
+                // Cache the data for 60 minutes (adjust the time as needed)
+                Cache::put($cacheKey, $listings, 60);
+            }
             return view('applicants.index', compact('listings'));
         } else {
             // Handle the case when the user is not authenticated
